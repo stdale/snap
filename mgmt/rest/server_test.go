@@ -24,6 +24,7 @@ package rest
 import (
 	"testing"
 
+	"github.com/intelsdi-x/snap/mgmt/rest/restcfg"
 	"github.com/intelsdi-x/snap/pkg/cfgfile"
 	. "github.com/smartystreets/goconvey/convey"
 )
@@ -41,22 +42,22 @@ const (
 		},
 		"additionalProperties": true,
 		"definitions": { ` +
-		`"control": {}, "scheduler": {}, ` + CONFIG_CONSTRAINTS + `, "tribe":{}` +
+		`"control": {}, "scheduler": {}, ` + restcfg.CONFIG_CONSTRAINTS + `, "tribe":{}` +
 		`}` +
 		`}`
 )
 
 type mockRestAPIConfig struct {
-	RestAPI *Config
+	RestAPI *restcfg.Config
 }
 
 func TestRestAPIConfigJSON(t *testing.T) {
 	config := &mockRestAPIConfig{
-		RestAPI: GetDefaultConfig(),
+		RestAPI: restcfg.GetDefaultConfig(),
 	}
 	path := "../../examples/configs/snap-config-sample.json"
 	err := cfgfile.Read(path, &config, MOCK_CONSTRAINTS)
-	var cfg *Config
+	var cfg *restcfg.Config
 	if err == nil {
 		cfg = config.RestAPI
 	}
@@ -85,8 +86,8 @@ func TestRestAPIConfigJSON(t *testing.T) {
 		Convey("RestCertificate should equal /etc/snap/cert.pem", func() {
 			So(cfg.RestCertificate, ShouldEqual, "/etc/snap/cert.pem")
 		})
-		Convey("RestLoadPath should equal /tmp", func() {
-			So(cfg.RestLoadPath, ShouldEqual, "/tmp")
+		Convey("RestKey should equal /path/to/private/key", func() {
+			So(cfg.RestKey, ShouldEqual, "/path/to/private/key")
 		})
 		Convey("RestKey should equal /etc/snap/cert.key", func() {
 			So(cfg.RestKey, ShouldEqual, "/etc/snap/cert.key")
@@ -97,11 +98,11 @@ func TestRestAPIConfigJSON(t *testing.T) {
 
 func TestRestAPIConfigYaml(t *testing.T) {
 	config := &mockRestAPIConfig{
-		RestAPI: GetDefaultConfig(),
+		RestAPI: restcfg.GetDefaultConfig(),
 	}
 	path := "../../examples/configs/snap-config-sample.yaml"
 	err := cfgfile.Read(path, &config, MOCK_CONSTRAINTS)
-	var cfg *Config
+	var cfg *restcfg.Config
 	if err == nil {
 		cfg = config.RestAPI
 	}
@@ -141,7 +142,7 @@ func TestRestAPIConfigYaml(t *testing.T) {
 }
 
 func TestRestAPIDefaultConfig(t *testing.T) {
-	cfg := GetDefaultConfig()
+	cfg := restcfg.GetDefaultConfig()
 	Convey("Provided a default RestAPI config", t, func() {
 		Convey("Enable should be true", func() {
 			So(cfg.Enable, ShouldEqual, true)
@@ -163,9 +164,6 @@ func TestRestAPIDefaultConfig(t *testing.T) {
 		})
 		Convey("RestCertificate should be empty", func() {
 			So(cfg.RestCertificate, ShouldEqual, "")
-		})
-		Convey("RestLoadPath should be empty", func() {
-			So(cfg.RestLoadPath, ShouldEqual, "")
 		})
 		Convey("RestKey should be empty", func() {
 			So(cfg.RestKey, ShouldEqual, "")
