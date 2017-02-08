@@ -28,6 +28,7 @@ import (
 
 	log "github.com/Sirupsen/logrus"
 	"github.com/intelsdi-x/snap/control"
+	"github.com/intelsdi-x/snap/mgmt/rest/restcfg"
 	"github.com/intelsdi-x/snap/plugin/helper"
 	"github.com/intelsdi-x/snap/scheduler"
 )
@@ -58,7 +59,7 @@ type mockConfig struct {
 	LogPath    string `json:"-"yaml:"-"`
 	Control    *control.Config
 	Scheduler  *scheduler.Config `json:"-",yaml:"-"`
-	RestAPI    *Config           `json:"-",yaml:"-"`
+	RestAPI    *restcfg.Config   `json:"-",yaml:"-"`
 }
 
 func getDefaultMockConfig() *mockConfig {
@@ -68,7 +69,7 @@ func getDefaultMockConfig() *mockConfig {
 		LogPath:    "",
 		Control:    control.GetDefaultConfig(),
 		Scheduler:  scheduler.GetDefaultConfig(),
-		RestAPI:    GetDefaultConfig(),
+		RestAPI:    restcfg.GetDefaultConfig(),
 	}
 }
 

@@ -78,7 +78,7 @@ func startAPI() string {
 	// Start a REST API to talk to
 	v1.StreamingBufferWindow = 0.01
 	log.SetLevel(LOG_LEVEL)
-	r, _ := rest.New(rest.GetDefaultConfig())
+	r, _ := rest.New(rest.restcfg.GetDefaultConfig())
 	c := control.New(control.GetDefaultConfig())
 	c.Start()
 	s := scheduler.New(scheduler.GetDefaultConfig())
