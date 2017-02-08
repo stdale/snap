@@ -85,6 +85,9 @@ func TestRestAPIConfigJSON(t *testing.T) {
 		Convey("RestCertificate should equal /etc/snap/cert.pem", func() {
 			So(cfg.RestCertificate, ShouldEqual, "/etc/snap/cert.pem")
 		})
+		Convey("RestLoadPath should equal /tmp", func() {
+			So(cfg.RestLoadPath, ShouldEqual, "/tmp")
+		})
 		Convey("RestKey should equal /etc/snap/cert.key", func() {
 			So(cfg.RestKey, ShouldEqual, "/etc/snap/cert.key")
 		})
@@ -127,6 +130,9 @@ func TestRestAPIConfigYaml(t *testing.T) {
 		Convey("RestCertificate should equal /etc/snap/cert.pem", func() {
 			So(cfg.RestCertificate, ShouldEqual, "/etc/snap/cert.pem")
 		})
+		Convey("RestLoadPath should equal /tmp", func() {
+			So(cfg.RestLoadPath, ShouldEqual, "/tmp")
+		})
 		Convey("RestKey should equal /etc/snap/cert.key", func() {
 			So(cfg.RestKey, ShouldEqual, "/etc/snap/cert.key")
 		})
@@ -157,6 +163,9 @@ func TestRestAPIDefaultConfig(t *testing.T) {
 		})
 		Convey("RestCertificate should be empty", func() {
 			So(cfg.RestCertificate, ShouldEqual, "")
+		})
+		Convey("RestLoadPath should be empty", func() {
+			So(cfg.RestLoadPath, ShouldEqual, "")
 		})
 		Convey("RestKey should be empty", func() {
 			So(cfg.RestKey, ShouldEqual, "")

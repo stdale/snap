@@ -22,6 +22,7 @@ package rest
 import (
 	"fmt"
 
+	"github.com/intelsdi-x/snap/mgmt/rest/restcfg"
 	"github.com/urfave/cli"
 )
 
@@ -37,7 +38,7 @@ var (
 	}
 	flAPIPort = cli.StringFlag{
 		Name:   "api-port, p",
-		Usage:  fmt.Sprintf("API port (default: %v)", defaultPort),
+		Usage:  fmt.Sprintf("API port (default: %v)", restcfg.DefaultPort),
 		EnvVar: "SNAP_PORT",
 	}
 	flRestHTTPS = cli.BoolFlag{
@@ -52,6 +53,10 @@ var (
 		Name:  "rest-key",
 		Usage: "A path to a key file to use for HTTPS deployment of Snap's REST API",
 	}
+	flRestLoadPath = cli.StringFlag{
+		Name:  "rest-load-path",
+		Usage: "A path where API loads plugins from",
+	}
 	flRestAuth = cli.BoolFlag{
 		Name:  "rest-auth",
 		Usage: "Enables Snap's REST API authentication",
@@ -62,5 +67,5 @@ var (
 	}
 
 	// Flags consumed by snapteld
-	Flags = []cli.Flag{flAPIDisabled, flAPIAddr, flAPIPort, flRestHTTPS, flRestCert, flRestKey, flRestAuth, flPProf}
+	Flags = []cli.Flag{flAPIDisabled, flAPIAddr, flAPIPort, flRestHTTPS, flRestCert, flRestKey, flRestLoadPath, flRestAuth, flPProf}
 )
