@@ -43,7 +43,6 @@ import (
 	"github.com/intelsdi-x/snap/control"
 	"github.com/intelsdi-x/snap/core/serror"
 	"github.com/intelsdi-x/snap/mgmt/rest"
-	"github.com/intelsdi-x/snap/mgmt/rest/restcfg"
 	"github.com/intelsdi-x/snap/mgmt/tribe"
 	"github.com/intelsdi-x/snap/mgmt/tribe/agreement"
 	"github.com/intelsdi-x/snap/pkg/cfgfile"
@@ -125,7 +124,7 @@ type Config struct {
 	LogColors   bool              `json:"log_colors,omitempty"yaml:"log_colors,omitempty"`
 	Control     *control.Config   `json:"control,omitempty"yaml:"control,omitempty"`
 	Scheduler   *scheduler.Config `json:"scheduler,omitempty"yaml:"scheduler,omitempty"`
-	RestAPI     *restcfg.Config   `json:"restapi,omitempty"yaml:"restapi,omitempty"`
+	RestAPI     *rest.Config      `json:"restapi,omitempty"yaml:"restapi,omitempty"`
 	Tribe       *tribe.Config     `json:"tribe,omitempty"yaml:"tribe,omitempty"`
 }
 
@@ -167,7 +166,7 @@ const (
 		"definitions": { ` +
 		control.CONFIG_CONSTRAINTS + `,` +
 		scheduler.CONFIG_CONSTRAINTS + `,` +
-		restcfg.CONFIG_CONSTRAINTS + `,` +
+		rest.CONFIG_CONSTRAINTS + `,` +
 		tribe.CONFIG_CONSTRAINTS +
 		`}` +
 		`}`
@@ -523,7 +522,7 @@ func getDefaultConfig() *Config {
 		LogColors:   defaultLogColors,
 		Control:     control.GetDefaultConfig(),
 		Scheduler:   scheduler.GetDefaultConfig(),
-		RestAPI:     restcfg.GetDefaultConfig(),
+		RestAPI:     rest.GetDefaultConfig(),
 		Tribe:       tribe.GetDefaultConfig(),
 	}
 }
@@ -799,6 +798,7 @@ func applyCmdLineFlags(cfg *Config, ctx *cli.Context) {
 	cfg.Control.ListenAddr = setStringVal(cfg.Control.ListenAddr, ctx, "control-listen-addr")
 	cfg.Control.ListenPort = setIntVal(cfg.Control.ListenPort, ctx, "control-listen-port")
 	cfg.Control.Pprof = setBoolVal(cfg.Control.Pprof, ctx, "pprof")
+	cfg.Control.TempDirPath = setStringVal(cfg.Control.TempDirPath, ctx, "temp_dir_path")
 	// next for the RESTful server related flags
 	cfg.RestAPI.Enable = setBoolVal(cfg.RestAPI.Enable, ctx, "disable-api", invertBoolean)
 	cfg.RestAPI.Port = setIntVal(cfg.RestAPI.Port, ctx, "api-port")
@@ -806,7 +806,6 @@ func applyCmdLineFlags(cfg *Config, ctx *cli.Context) {
 	cfg.RestAPI.HTTPS = setBoolVal(cfg.RestAPI.HTTPS, ctx, "rest-https")
 	cfg.RestAPI.RestCertificate = setStringVal(cfg.RestAPI.RestCertificate, ctx, "rest-cert")
 	cfg.RestAPI.RestKey = setStringVal(cfg.RestAPI.RestKey, ctx, "rest-key")
-	cfg.RestAPI.RestLoadPath = setStringVal(cfg.RestAPI.RestLoadPath, ctx, "rest-load-path")
 	cfg.RestAPI.RestAuth = setBoolVal(cfg.RestAPI.RestAuth, ctx, "rest-auth")
 	cfg.RestAPI.RestAuthPassword = setStringVal(cfg.RestAPI.RestAuthPassword, ctx, "rest-auth-pwd")
 	cfg.RestAPI.Pprof = setBoolVal(cfg.RestAPI.Pprof, ctx, "pprof")

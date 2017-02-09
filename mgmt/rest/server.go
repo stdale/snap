@@ -33,7 +33,6 @@ import (
 	"github.com/urfave/negroni"
 
 	"github.com/intelsdi-x/snap/mgmt/rest/api"
-	"github.com/intelsdi-x/snap/mgmt/rest/restcfg"
 	"github.com/intelsdi-x/snap/mgmt/rest/v1"
 	"github.com/intelsdi-x/snap/mgmt/rest/v2"
 )
@@ -64,7 +63,7 @@ type Server struct {
 }
 
 // New creates a REST API server with a given config
-func New(cfg *restcfg.Config) (*Server, error) {
+func New(cfg *Config) (*Server, error) {
 	// pull a few parameters from the configuration passed in by snapteld
 	s := &Server{
 		err:        make(chan error),

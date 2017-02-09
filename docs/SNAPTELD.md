@@ -52,7 +52,6 @@ $ snapteld [global options] command [command options] [arguments...]
 --rest-cert value                            A path to a certificate to use for HTTPS deployment of Snap's REST API
 --rest-key value                             A path to a key file to use for HTTPS deployment of Snap's REST API
 --rest-auth                                  Enables Snap's REST API authentication
---rest-load-path                             A configurable path from which the API loads plugins
 --pprof                                      Enables profiling tools
 --tribe-node-name value                      Name of this node in tribe cluster (default: hostname) [$SNAP_TRIBE_NODE_NAME]
 --tribe                                      Enable tribe mode [$SNAP_TRIBE]

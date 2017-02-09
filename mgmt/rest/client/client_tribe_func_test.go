@@ -37,7 +37,6 @@ import (
 	"github.com/intelsdi-x/snap/control"
 	"github.com/intelsdi-x/snap/mgmt/rest"
 	"github.com/intelsdi-x/snap/mgmt/rest/client"
-	"github.com/intelsdi-x/snap/mgmt/rest/restcfg"
 	"github.com/intelsdi-x/snap/mgmt/rest/v1/rbody"
 	"github.com/intelsdi-x/snap/mgmt/tribe"
 	"github.com/intelsdi-x/snap/scheduler"
@@ -199,7 +198,7 @@ func startTribes(count int) []int {
 		t.SetPluginCatalog(c)
 		t.SetTaskManager(s)
 		t.Start()
-		r, _ := rest.New(restcfg.GetDefaultConfig())
+		r, _ := rest.New(rest.GetDefaultConfig())
 		r.BindMetricManager(c)
 		r.BindTaskManager(s)
 		r.BindTribeManager(t)

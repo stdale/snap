@@ -1,20 +1,17 @@
-package restcfg
-
-import "os"
+package rest
 
 // default configuration values
-var (
-	defaultEnable          = true
-	DefaultPort            = 8181
-	defaultAddress         = ""
-	defaultHTTPS           = false
-	defaultRestCertificate = ""
-	defaultRestKey         = ""
-	DefaultRestLoadPath    = os.TempDir()
-	defaultAuth            = false
-	defaultAuthPassword    = ""
-	defaultPortSetByConfig = false
-	defaultPprof           = false
+const (
+	defaultEnable          bool   = true
+	defaultPort            int    = 8181
+	defaultAddress         string = ""
+	defaultHTTPS           bool   = false
+	defaultRestCertificate string = ""
+	defaultRestKey         string = ""
+	defaultAuth            bool   = false
+	defaultAuthPassword    string = ""
+	defaultPortSetByConfig bool   = false
+	defaultPprof           bool   = false
 )
 
 // holds the configuration passed in through the SNAP config file
@@ -28,7 +25,6 @@ type Config struct {
 	HTTPS            bool   `json:"https"yaml:"https"`
 	RestCertificate  string `json:"rest_certificate"yaml:"rest_certificate"`
 	RestKey          string `json:"rest_key"yaml:"rest_key"`
-	RestLoadPath     string `json:"rest_load_path"yaml:"rest_load_path"`
 	RestAuth         bool   `json:"rest_auth"yaml:"rest_auth"`
 	RestAuthPassword string `json:"rest_auth_password"yaml:"rest_auth_password"`
 	portSetByConfig  bool   ``
@@ -58,9 +54,6 @@ const (
 					"rest_key" : {
 						"type": "string"
 					},
-					"rest_load_path" : {
-						"type": "string"
-					},
 					"port" : {
 						"type": "integer",
 						"minimum": 1,
@@ -82,12 +75,11 @@ const (
 func GetDefaultConfig() *Config {
 	return &Config{
 		Enable:           defaultEnable,
-		Port:             DefaultPort,
+		Port:             defaultPort,
 		Address:          defaultAddress,
 		HTTPS:            defaultHTTPS,
 		RestCertificate:  defaultRestCertificate,
 		RestKey:          defaultRestKey,
-		RestLoadPath:     DefaultRestLoadPath,
 		RestAuth:         defaultAuth,
 		RestAuthPassword: defaultAuthPassword,
 		portSetByConfig:  defaultPortSetByConfig,

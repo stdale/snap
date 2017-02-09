@@ -36,7 +36,6 @@ import (
 
 	"github.com/intelsdi-x/snap/control"
 	"github.com/intelsdi-x/snap/mgmt/rest"
-	"github.com/intelsdi-x/snap/mgmt/rest/restcfg"
 	"github.com/intelsdi-x/snap/mgmt/rest/v1"
 	"github.com/intelsdi-x/snap/plugin/helper"
 	"github.com/intelsdi-x/snap/scheduler"
@@ -79,7 +78,7 @@ func startAPI() string {
 	// Start a REST API to talk to
 	v1.StreamingBufferWindow = 0.01
 	log.SetLevel(LOG_LEVEL)
-	r, _ := rest.New(restcfg.GetDefaultConfig())
+	r, _ := rest.New(rest.GetDefaultConfig())
 	c := control.New(control.GetDefaultConfig())
 	c.Start()
 	s := scheduler.New(scheduler.GetDefaultConfig())

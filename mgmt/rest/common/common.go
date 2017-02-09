@@ -7,12 +7,12 @@ import (
 	"runtime"
 
 	log "github.com/Sirupsen/logrus"
-	"github.com/intelsdi-x/snap/mgmt/rest/restcfg"
+	"github.com/intelsdi-x/snap/control"
 )
 
 func WriteFile(filename string, b []byte) (string, error) {
 	// Create temporary directory
-	dir, err := ioutil.TempDir(restcfg.DefaultRestLoadPath, "snap-plugin-")
+	dir, err := ioutil.TempDir(control.GetDefaultConfig().TempDirPath, "snap-plugin-")
 	//restcfg.DefaultRestLoadPath
 	if err != nil {
 		return "", err
